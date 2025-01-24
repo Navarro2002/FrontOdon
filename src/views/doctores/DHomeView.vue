@@ -4,6 +4,7 @@
     <div class="header-actions">
       <el-button type="primary" class="mb-3" @click="openDialog">Agregar Doctor</el-button>
     </div>
+    
     <el-container style="margin-bottom: 25px;">
       <el-input v-model="search" placeholder="Buscar por nombre o apellido" style="width: 600px;"
         @input="buscarDoctor" />
@@ -104,13 +105,6 @@ const columns = ref([
   { label: 'Especialidad', prop: 'especialidad' },
   { label: 'Teléfono', prop: 'telefono' },
   { label: 'Correo', prop: 'email' },
-  {
-    label: 'Estado',
-    prop: 'activo',
-    custom: {
-      render: (row: any) => (row.activo ? 'Activo' : 'Inactivo'),
-    },
-  },
 ]);
 
 const buscarDoctor = () => {

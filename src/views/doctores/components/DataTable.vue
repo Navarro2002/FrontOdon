@@ -1,18 +1,23 @@
 <template>
   <el-table :data="tableData" border style="width: 100%" v-loading="loading">
     <!-- Generación dinámica de columnas -->
-    <el-table-column
-      v-for="(column, index) in columns"
-      :key="index"
-      :label="column.label"
-      :prop="column.prop"
-    >
+    <el-table-column v-for="(column, index) in columns" :key="index" :label="column.label" :prop="column.prop">
+
       <!-- Personalización del contenido -->
       <template v-if="column.custom" #default="{ row }">
         <span v-html="column.custom.render ? column.custom.render(row) : ''"></span>
       </template>
     </el-table-column>
 
+    <!-- Columna personalizada para Estado -->
+    <el-table-column label="Estado">
+      <template #default="{ row }">
+        <el-tag :type="row.activo ? 'success' : 'danger'">
+          {{ row.activo ? 'Activo' : 'Inactivo' }}
+        </el-tag>
+      </template>
+    </el-table-column>
+    
     <!-- Columna de Acciones -->
     <el-table-column label="Acciones" width="200">
       <template #default="{ row }">
@@ -47,14 +52,8 @@
 
   <!-- Paginación -->
   <div style="display: flex; justify-content: center; margin-top: 20px;">
-    <el-pagination
-      background
-      layout="prev, pager, next"
-      :total="total"
-      :current-page="currentPage"
-      :page-size="pageSize"
-      @current-change="handlePageChange"
-    />
+    <el-pagination background layout="prev, pager, next" :total="total" :current-page="currentPage"
+      :page-size="pageSize" @current-change="handlePageChange" />
   </div>
 </template>
 
