@@ -8,9 +8,41 @@
             </template>
         </el-table-column>
 
+        <!-- Columna personalizada para Estado -->
+        <el-table-column label="Estado">
+            <template #default="{ row }">
+                <el-tag :type="row.activo ? 'success' : 'danger'">
+                    {{ row.activo ? 'Activo' : 'Inactivo' }}
+                </el-tag>
+            </template>
+        </el-table-column>
+
         <!-- Columna de Acciones -->
         <el-table-column label="Acciones" width="200">
+            <template #default="{ row }">
+                <el-button size="small" @click="detallePaciente(row)">
+                    <el-icon size="20px">
+                        <View />
+                    </el-icon>
+                </el-button>
 
+                <el-button size="small" @click="editarPaciente(row)">
+                    <el-icon size="20px">
+                        <Edit />
+                    </el-icon>
+                </el-button>
+
+                <el-button size="small" @click="confirmarCambioEstado(row)">
+                    <el-icon :size="20" :color="row.activo ? '#c82121' : '#21c830'">
+                        <template v-if="row.activo">
+                            <RemoveFilled />
+                        </template>
+                        <template v-else>
+                            <SuccessFilled />
+                        </template>
+                    </el-icon>
+                </el-button>
+            </template>
         </el-table-column>
     </el-table>
 
@@ -23,6 +55,9 @@
 
 <script lang="ts" setup>
 import { defineProps, defineEmits } from 'vue';
+import { RemoveFilled, SuccessFilled, Edit, View } from '@element-plus/icons-vue';
+
+const emit = defineEmits(['changePage', 'detallePaciente', 'confirmarCambioEstado', 'editarPaciente']);
 
 
 defineProps({
@@ -54,9 +89,35 @@ defineProps({
 
 // Manejar cambio de página
 const handlePageChange = (page: number) => {
-    // emit('changePage', page);
+    emit('changePage', page);
 };
 
+// Ver detalles del paciente
+const detallePaciente = (row: any) => {
+    if (!row || !row.id) {
+        console.error('Error: No se puede ver detalles porque el ID no está definido:', row);
+        return;
+    }
+    emit('detallePaciente', row);
+};
+
+// Cambiar estado 
+const confirmarCambioEstado = (row: any) => {
+    if (!row || !row.id) {
+        console.error('Error: No se puede cambiar el estado porque el ID no está definido:', row);
+        return;
+    }
+    emit('confirmarCambioEstado', row);
+};
+
+// Editar 
+const editarPaciente = (row: any) => {
+    if (!row || !row.id) {
+        console.error('Error: No se puede editar porque el ID no está definido:', row);
+        return;
+    }
+    emit('editarPaciente', row);
+};
 
 </script>
 

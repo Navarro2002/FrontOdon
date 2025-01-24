@@ -1,11 +1,5 @@
 <template>
-  <el-menu
-    ellipsis
-    class="el-menu-popper-demo"
-    mode="horizontal"
-    :popper-offset="16"
-    style="max-width: 800px"
-  >
+  <el-menu ellipsis class="el-menu-popper-demo" mode="horizontal" :popper-offset="16" style="max-width: 800px">
     <el-menu-item index="1" @click="$router.push({ name: 'Home' })">Home</el-menu-item>
     <el-menu-item index="2" @click="$router.push({ name: 'About' })">About</el-menu-item>
     <el-sub-menu index="3">
@@ -16,14 +10,13 @@
       <template #title>Pacientes</template>
       <el-menu-item index="4-1" @click="$router.push({ name: 'Pacientes' })">Home Pacientes</el-menu-item>
     </el-sub-menu>
+    <el-sub-menu index="5">
+      <template #title>Citas</template>
+      <el-menu-item index="5-1" @click="$router.push({ name: 'Citas' })">Gestión de citas</el-menu-item>
+    </el-sub-menu>
     <el-menu-item>
-        <el-switch
-        v-model="darkMode"
-        active-text="Oscuro"
-        inactive-text="Claro"
-      />
+      <el-switch v-model="darkMode" active-text="Oscuro" inactive-text="Claro" />
     </el-menu-item>
-  
   </el-menu>
 
   <router-view />

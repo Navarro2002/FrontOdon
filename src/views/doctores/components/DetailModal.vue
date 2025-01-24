@@ -1,8 +1,8 @@
 <template>
-  <el-dialog v-model="localVisible" :title="title" width="600px">
-    <el-descriptions title="Detalle del Doctor" border>
+  <el-dialog v-model="localVisible" :title="title" width="800px">
+    <el-descriptions title="Detalle del Doctor" border :column="2">
       <el-descriptions-item label="Nombre">
-        {{ doctor?.nombre || '' }}
+        {{ `${doctor?.nombre} ${doctor?.apellido}` || '' }}
       </el-descriptions-item>
       <el-descriptions-item label="Especialidad">
         {{ doctor?.especialidad || '' }}
